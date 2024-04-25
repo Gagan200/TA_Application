@@ -1,0 +1,124 @@
+{% extends "d_staffs/_base.html" %}
+
+
+{% block main %}
+<div class="flex flex-col lg:flex-row">
+
+    <form method="post" class="mycontainer group/container flex flex-col items-start">
+        {% csrf_token %}
+        <h1 class="fancy-headline relative inline-block text-slate-700 text-2xl font-medium">Details</h1>
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <span class=" text-sm font-medium min-w-[15ch] text-slate-500">Name</span>
+            <span class="text-slate-900">{{application.user.full_name}}</span>
+        </div> 
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <span class=" text-sm font-medium min-w-[15ch] text-slate-500">Email</span>
+            <span class="text-slate-900">{{application.user.email}}</span>
+        </div>
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium min-w-[15ch] text-slate-500">Course</label>
+            <span class="text-slate-900">{{application.course}}</span>
+        </div>
+
+
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">CV</label>
+            <a href="{{application.cv1.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% if application.cv2 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">CV2</label>
+            <a href="{{application.cv2.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+        {% if application.cv3 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">CV3</label>
+            <a href="{{application.cv3.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+        {% if application.cv4 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">CV4</label>
+            <a href="{{application.cv4.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+
+        <!-- Certificates-->
+        {% if application.certificate1 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">Certificate1</label>
+            <a href="{{application.certificate1.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+        {% if application.certificate2%}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">Certificate2</label>
+            <a href="{{application.certificate2.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+        {% if application.certificate3 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">Certificate3</label>
+            <a href="{{application.certificate3.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+        {% if application.certificate4 %}
+        <div class="w-full mt-4 flex gap-4 items-center">
+            <label class="text-sm font-medium w-[15ch] text-slate-500">Certificate4</label>
+            <a href="{{application.certificate4.url}}" class="inline-block btn-secondary">VIEW</a>
+        </div>
+        {% endif %}
+
+        <div class="flex gap-4 mt-4">
+            <p class="text-slate-600 rounded-md">{{application.liked_by.count}} <i class="fa-solid fa-thumbs-up"></i></p>
+            <p class="text-slate-600 rounded-md">{{application.disliked_by.count}} <i class="fa-solid fa-thumbs-down"></i></p>
+
+        </div>
+
+        <div class="flex gap-4 mt-4">
+            {% if request.user in application.liked_by.all %}
+            <p class="text-green-600 py-2 px-4 border border-green-600 rounded-md">Liked</p>
+            {% elif request.user in application.disliked_by.all %}
+            <p class="text-red-600 py-2 px-4 border border-red-600 rounded-md">Diliked</p>
+            {% else %}
+            <button name="like" class="btn-primary">Like</button>
+            <button name="dislike" class="btn-primary !bg-gray-700 hover:!bg-gray-600">Dislike</button>
+            
+            {% endif %}
+        </div>
+        <div class="mt-4">
+            <p class="text-sm font-medium min-w-[15ch] text-slate-500 pb-2">Notify the applicant about their acceptance.</p>
+            <button name="notify" class="btn-primary">
+                <i class="fa-solid fa-bell pr-1"></i> Notify
+            </button>
+        </div>
+    </form>
+
+    <!-- Checklist-->
+    <form method="post" class="mycontainer group/container flex flex-col items-start">
+        {% csrf_token %}
+        <h1 class="fancy-headline relative inline-block text-slate-700 text-2xl font-medium">Checklist</h1>
+
+        <p class="mt-4 font-semibold">{{completion_percentage}}%</p>
+        <div class="flex border w-full h-4">
+            {% for title, status in checklist.items %}
+                {% if status %}
+                <div class="w-[12.5%] h-4 bg-green-500"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% for title, status in checklist.items %}
+        <div class="flex gap-2 pt-4">
+            <input type="checkbox" id="{{title}}" name="box{{forloop.counter}}" {% if status %} checked {% endif %}>
+            <label for="{{title}}" class="font-medium min-w-[15ch] text-slate-500">{{title}}</span>
+        </div>
+        {% endfor %}
+    </form>
+</div> 
+
+<!-- Comments -->
+{% include "components/comments.html" %}
+
+{% endblock main %}

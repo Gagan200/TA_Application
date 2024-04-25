@@ -1,0 +1,28 @@
+/* static/src/input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+    @apply text-sm py-2 px-4 bg-brand text-white font-semibold rounded-lg shadow-md hover:bg-brand-hv focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+}
+
+
+.btn-secondary{
+    @apply text-sm py-2 px-4 text-slate-700 border rounded-lg hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+}
+
+.regular-input {
+    @apply rounded-md border-0 outline-none py-1.5 px-3 text-gray-900 bg-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}
+
+.fancy-headline {
+  @apply before:w-2/4 before:h-[1px] before:bg-brand before:absolute before:bottom-0 before:left-0;
+  @apply before:transition-all before:duration-300 before:ease-in-out hover:before:translate-x-full;
+  @apply group-hover/container:before:translate-x-full;
+}  
+
+.mycontainer {
+    @apply px-8 lg:px-16 py-4 lg:py-8;
+  }

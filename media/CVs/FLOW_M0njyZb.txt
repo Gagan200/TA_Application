@@ -1,0 +1,9 @@
+TA- 1. List of Applications 2 
+
+DS - 1.list of application, 2.recommendation screen, 
+
+TAC - list of applications (all applications with where d_staff has reccomended the specific TA ) if ok approve , if no disapprove, so 2. approval screen 
+
+DS - 3. to view comments of tac and add dstaff's comments, a screen
+
+INS- 1.current TAs who are selected 2. review parameters ( y or no for a few paramenters ( the performance of tas are assessed based on the number of ys and ns he/she gets) )
